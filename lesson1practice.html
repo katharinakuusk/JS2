@@ -12,7 +12,12 @@
 	{
 	   return this.htmlCode;
 	}
-
+    
+    Container.prototype.remove = function () {
+        var nodeId = this.id;
+        var node = document.getElementById(nodeId);
+        return node.remove();
+    }
 	
 // Создаем класс, конструктор Menu
 	function Menu(my_id, my_class, my_items){
@@ -42,9 +47,10 @@
 	
 
 	//Создаем класс, конструктор для пункта меню
-	function MenuItem(my_href, my_name){
+	function MenuItem(my_href, my_name, my_id){
 	   Container.call(this); //наследуем свойства Container
 	   this.className = "menu-item";
+       this.id = my_id;
 	   this.href = my_href;
 	   this.name = my_name;
 	}
@@ -55,13 +61,13 @@
 
 	//Переопределяем метод render для класса MenuItem
 	MenuItem.prototype.render = function(){
-		return "<li class='"+this.className+"' href='"+ this.href +"'>" + this.name + "</li>";
+		return "<li class='"+this.className+ "' id = '" + this.id +  "' href='"+ this.href +"'>" + this.name + "</li>";
 	}
 
 	//Создаем 3 экземпляра, 3 пункта меню 
-	var m_item1 = new MenuItem("/", "Главная");
-	var m_item2 = new MenuItem("/catalogue/", "Каталог");
-	var m_item3 = new MenuItem("/gallery/", "Галерея");
+	var m_item1 = new MenuItem("/", "Главная", "m_item1");
+	var m_item2 = new MenuItem("/catalogue/", "Каталог", "m_item2");
+	var m_item3 = new MenuItem("/gallery/", "Галерея", "m_item3");
 
 	//Убираем пункты меню в один объект, чтобы проще было его передать в качестве аргумента в конструктор Menu
 	var m_items = {0: m_item1, 1: m_item2, 2: m_item3};
@@ -71,5 +77,6 @@
 
 	//Выводим меню и пункты меню на экран
 	document.write(menu.render());
+    m_item3.remove();
 
 </script>
