@@ -39,12 +39,43 @@
 		for(var item in this.items){			
 			if(this.items[item] instanceof MenuItem){
 				result += this.items[item].render();
+                if (this.items[item].items) {
+                    result += this.items[item].items.render();
+                }
 			}
 		}
 		result += "</ul>";
 		return result;
 	}
-	
+    
+    function SubMenu (my_id, my_items, my_parent) {
+        Menu.call(this);
+        this.id = my_id;
+        this.className = 'SubMenu';
+        this.items = my_items;
+        var parent = my_parent;
+        parent.items = this;
+        /*for (var item in this.items) {
+            parent.items.push(this.items[item]);
+        }  */               
+        //var parent = document.getElementById(my_parent);
+        //this.parent = parent;
+    } 
+    
+    SubMenu.prototype = Object.create(Menu.prototype);
+	SubMenu.prototype.constructor = SubMenu;
+    
+    SubMenu.prototype.render = function() {
+        var result = "<ul class='"+this.className+"' id='"+this.id+"'>";
+        
+        for(var item in this.items){			
+			if(this.items[item] instanceof MenuItem){
+				result += this.items[item].render();
+			}
+		}
+		result += "</ul>";
+		return result;
+    } 
 
 	//Создаем класс, конструктор для пункта меню
 	function MenuItem(my_href, my_name, my_id){
@@ -71,12 +102,19 @@
 
 	//Убираем пункты меню в один объект, чтобы проще было его передать в качестве аргумента в конструктор Menu
 	var m_items = {0: m_item1, 1: m_item2, 2: m_item3};
+    
+    var sm1_item1 = new MenuItem("/catalogue/winter/", "Зима", "sm1_item1");
+    var sm1_item2 = new MenuItem("/catalogue/autumn/", "Осень", "sm1_item2");
+    var sm1_item3 = new MenuItem("/catalogue/summer/", "Лето", "sm1_item3");
+    var sm1_items = {0: sm1_item1, 1: sm1_item2, 2: sm1_item3};
+    var subMenu1 = new SubMenu("subMenu1", sm1_items, m_item2);
 
 	//создаем экземпляр класса Menu
 	var menu = new Menu("my_menu", "My_class", m_items);
 
-	//Выводим меню и пункты меню на экран
+    
+    
+    //Выводим меню и пункты меню на экран
 	document.write(menu.render());
     m_item3.remove();
-
 </script>
