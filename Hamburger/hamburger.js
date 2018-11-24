@@ -17,7 +17,15 @@ Hamburger.prototype.addTopping = function (actTopping) {
 } 
 
 Hamburger.prototype.removeTopping = function (actTopping) {
-    
+    if (actTopping == parameters.topping.mayo || actTopping == parameters.topping.spice) {
+        for (var item in this.topping) {
+            if (actTopping == this.topping[item]) {
+                let topping = this.topping;
+                topping.splice(item, 1);
+                this.topping = topping;
+            }
+        }
+    }
 }
 
 Hamburger.prototype.countCost = function () {
@@ -78,6 +86,8 @@ hamb1.addTopping(parameters.topping.spice);
 hamb1.addTopping(parameters.topping.spice); 
 hamb1.addTopping(parameters.topping.spice); 
 hamb1.addTopping(parameters.topping.spice); 
+
+hamb1.removeTopping(parameters.topping.spice);
 
 var totCost = hamb1.countCost();
 var totEn = hamb1.countEnergy();
