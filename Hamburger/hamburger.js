@@ -7,12 +7,18 @@ class Hamburger {
     }
 }
 
-Hamburger.prototype.addTopping = function (newTopping) {
-    let topping = this.topping;
-    var result = topping.filter(item => item !== newTopping);
-    result.push(newTopping);
-    this.topping = result;
+Hamburger.prototype.addTopping = function (actTopping) {
+    if (actTopping == parameters.topping.mayo || actTopping == parameters.topping.spice) {
+        let topping = this.topping;
+        var result = topping.filter(item => item !== actTopping);
+        result.push(actTopping);
+        this.topping = result;
+    }
 } 
+
+Hamburger.prototype.removeTopping = function (actTopping) {
+    
+}
 
 Hamburger.prototype.countCost = function () {
     var cost = 0;
@@ -66,12 +72,12 @@ var parameters = {
 }
 
 var hamb1 = new Hamburger(parameters.size.large, parameters.stuffing.cheese);
-/*hamb1.addTopping(parameters.topping.mayo);
+hamb1.addTopping(parameters.topping.mayo);
 hamb1.addTopping(parameters.topping.spice); 
 hamb1.addTopping(parameters.topping.spice); 
 hamb1.addTopping(parameters.topping.spice); 
 hamb1.addTopping(parameters.topping.spice); 
-hamb1.addTopping(parameters.topping.spice); */
+hamb1.addTopping(parameters.topping.spice); 
 
 var totCost = hamb1.countCost();
 var totEn = hamb1.countEnergy();
