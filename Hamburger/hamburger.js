@@ -3,15 +3,16 @@ class Hamburger {
 
         this.size = size;
         this.stuffing = [stuffing];
+        this.topping = [];
     }
 }
 
-/*Hamburger.prototype.addStuffing = function (newStuffing) {
-    let arr = this.stuffing;
-    let newArr = arr.concat(newStuffing); 
-    let newSet = new Set ([arr]);
-    this.stuffing = newSet;
-} */
+Hamburger.prototype.addTopping = function (newTopping) {
+    let topping = this.topping;
+    var result = topping.filter(item => item !== newTopping);
+    result.push(newTopping);
+    this.topping = result;
+} 
 
 Hamburger.prototype.countCost = function () {
     var cost = 0;
@@ -65,7 +66,17 @@ var parameters = {
 }
 
 var hamb1 = new Hamburger(parameters.size.large, parameters.stuffing.cheese);
-var t = hamb1.countCost();
-var d = hamb1.countEnergy();
-/*hamb1.addStuffing(parameters.stuffing.salad);
-hamb1.addStuffing(parameters.stuffing.potato); */
+/*hamb1.addTopping(parameters.topping.mayo);
+hamb1.addTopping(parameters.topping.spice); 
+hamb1.addTopping(parameters.topping.spice); 
+hamb1.addTopping(parameters.topping.spice); 
+hamb1.addTopping(parameters.topping.spice); 
+hamb1.addTopping(parameters.topping.spice); */
+
+var totCost = hamb1.countCost();
+var totEn = hamb1.countEnergy();
+var costPar = document.getElementById("cost");
+costPar.innerHTML = "Total cost: " + totCost;
+var energyPar = document.getElementById("energy");
+energyPar.innerHTML = "Total energy: " + totEn;
+
