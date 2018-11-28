@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+	// Создаем суперкласс, конструктор Container
+	function Container()
+	{
+	  this.id = "";
+	  this.className= "";
+	  this.htmlCode = "";
+	}
+
+	// Добавляем метод render
+	Container.prototype.render = function()
+	{
+	   return this.htmlCode;
+	}
+    
+    Container.prototype.remove = function () {
+        var nodeId = this.id;
+        var node = document.getElementById(nodeId);
+        return node.remove();
+    }
+	
+// Создаем класс, конструктор Menu
+	function Menu(my_id, my_class, my_items){
+	   Container.call(this); //наследуем свойства Container
+	   this.id = my_id;
+	   this.className = my_class;
+	   this.items = my_items;
+	}
+
+	//Создаем цепочку наследования Menu от Container	
+	Menu.prototype = Object.create(Container.prototype);
+	Menu.prototype.constructor = Menu;
+	
+	//Переопределяем метод render для класса Menu
+	Menu.prototype.render = function(){	
+		let result = "<ul class='"+this.className+"' id='"+this.id+"'>";
+
+		//В цикле проходимся по пунктам меню (this.items), внутри выполняем проверку на принадлежность к классу MenuItem
+		for(var item in this.items){			
+			if(this.items[item] instanceof MenuItem){
+				result += this.items[item].render();
+//                if (this.items[item].items) {
+//                    result += this.items[item].items.render();
+//                }
+			}
+		}
+		result += "</ul>";
+		return result;
+	}
+    
+//    function SubMenu (my_id, my_items, my_parent) {
+//        Menu.call(this);
+//        this.id = my_id;
+//        this.className = 'SubMenu';
+//        this.items = my_items;
+//        var parent = my_parent;
+//        parent.items = this;
+//    } 
+//    
+//    SubMenu.prototype = Object.create(Menu.prototype);
+//	SubMenu.prototype.constructor = SubMenu;
+    
+//    SubMenu.prototype.render = function() {
+//        var result = "<ul class='"+this.className+"' id='"+this.id+"'>";
+//        
+//        for(var item in this.items){			
+//			if(this.items[item] instanceof MenuItem){
+//				result += this.items[item].render();
+//			}
+//		}
+//		result += "</ul>";
+//		return result;
+//    } 
+
+	//Создаем класс, конструктор для пункта меню
+	function MenuItem(my_href, my_name, my_id, my_items){
+	   Container.call(this); //наследуем свойства Container
+	   this.className = "menu-item";
+       this.id = my_id;
+	   this.href = my_href;
+	   this.name = my_name;
+       this.items = my_items;
+	}
+
+	//Создаем цепочку наследования MenuItem от Container	
+	MenuItem.prototype = Object.create(Container.prototype);
+	MenuItem.prototype.constructor = MenuItem;
+
+	//Переопределяем метод render для класса MenuItem
+	MenuItem.prototype.render = function(){
+        let result = "<li class='"+this.className+ "' id = '" + this.id +  "' href='"+ this.href +"'>" + this.name + "</li>";
+        if (this.hasOwnProperty("items") && Array.isArray(this.items)) {
+            var subItems = [];
+            for (let item in this.items) {
+                let id = "m_item" + item;
+                subItems[item] = new MenuItem(this.items[item].href, this.items[item].title, id, this.items[item].items);
+            }
+//            this.items.map((item, index) => {
+//                let id = "m_item" + index;
+//                subItems[item] = new MenuItem(item.href, item.title, id, item.items);
+//            })
+            console.log(subItems);
+            var subMenu = new Menu(this.name, 'subMenu', subItems);
+            result += subMenu.render();
+        }
+        return result;
+	}
+
+//	//Создаем 3 экземпляра, 3 пункта меню 
+//	var m_item1 = new MenuItem("/", "Главная", "m_item1");
+//	var m_item2 = new MenuItem("/catalogue/", "Каталог", "m_item2");
+//	var m_item3 = new MenuItem("/gallery/", "Галерея", "m_item3");
+//
+//	//Убираем пункты меню в один объект, чтобы проще было его передать в качестве аргумента в конструктор Menu
+//	var m_items = {0: m_item1, 1: m_item2, 2: m_item3};
+//    
+//    var sm1_item1 = new MenuItem("/catalogue/winter/", "Зима", "sm1_item1");
+//    var sm1_item2 = new MenuItem("/catalogue/autumn/", "Осень", "sm1_item2");
+//    var sm1_item3 = new MenuItem("/catalogue/summer/", "Лето", "sm1_item3");
+//    var sm1_items= {0: sm1_item1, 1: sm1_item2, 2: sm1_item3};
+//    var subMenu1 = new SubMenu("subMenu1", sm1_items, m_item2);
+
+	//создаем экземпляр класса Menu
+	//var menu = new Menu("my_menu", "My_class", m_items);
+
+    
+    
+    //Выводим меню и пункты меню на экран
+	function fillMenuItems(xhr) {
+	var m_items = {};
+	
+	if(xhr.readyState==4) {
+		if(xhr.status==200) {			
+			var items = JSON.parse(xhr.responseText);
+			console.log(items);
+            
+			items.menu_items.map((item, index) => {
+                let subItems = "";
+                if (item.hasOwnProperty("items")) {
+                    subItems = item.items;
+                    console.log(subItems);
+                }
+                let id = "m_item" + index;
+				m_items[index] = new MenuItem(item.href, item.title, id, subItems);
+			})
+		} else {
+			alert ('Произошла ошибка: ' + xhr.status);
+		}
+	}
+        var menu = new Menu('my_menu', 'my_class', m_items);
+        document.write(menu.render());
+    }
+        
+        //XMLHttpRequest        
+     
+    var xhr = false;
+    if (window.XMLHttpRequest) { // если используется Gecko (Chrome, Mozilla, Opera, Safari)
+        xhr = new XMLHttpRequest();
+        if (xhr.overrideMimeType) {xhr.overrideMimeType('text/xml');}// для Mozilla Firefox, которые умеют обрабатывать ответ от сервера в случае, если тот не содержит заголовка XML mime-type  
+    } else if (window.ActiveXObject) { // Internet Explorer
+        try {
+            xhr = new ActiveXObject("Msxml2.XMLHTTP");
+        } 
+        catch (e) {
+            try {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            } 
+            catch (e) {
+            	console.log(e);
+            }
+        }
+    }    
+        
+    if(!xhr) {
+        alert('Невозможно открыть соединение');
+    }
+
+    var m_items;
+    xhr.onreadystatechange = function(){
+        fillMenuItems(xhr);
+    }
+
+    xhr.timeout = 15000;
+    xhr.ontimeout = function(){
+        alert('Превышено время ожидания запроса')
+    }
+
+    xhr.open('GET', 'https://api.myjson.com/bins/iokri', true);
+    xhr.send(null);
+</script>
+</body>
+</html>
