@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="form.js" defer></script>
+    <style>
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            width: 300px;
+            justify-content: space-around;
+            align-content: center;
+        }
+        
+        input {
+            width: 170px;
+            height: 30px;
+            margin-bottom: 20px;
+        }
+        
+        error-node {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+   <h1>Форма обратной связи</h1>
+   <form name="contacts" id="contacts">
+       <div><input type="text" placeholder="Имя" name="name"></div>
+       <input type="text" placeholder="Телефон" name="phone">
+       <input type="text" placeholder="e-mail" name="mail">
+       <input type="text" placeholder="Текст" name="text">
+       <input type="submit" id= "submit">
+   </form>
+   <div class="valid-message"></div>
+</body>
+</html>

@@ -5,7 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-   <div id="dialog">
+       <div id="dialog">
         Check-in assistant: 'Hello! Where are you flying today?'
         Tourist: 'Hi, I'm flying to Sydney.'
         Check-in assistant: 'May I see your passport please?'
@@ -28,7 +28,18 @@
     <script>
         var node = document.getElementById('dialog');
         var text = node.textContent;
-        var newText = text.replace(/'/g, "\"");
+        var newText = text.replace(/\'/g, "\"");
+//        var forExec = /\w\"\w/g; 
+//        var forApostrof;
+//        while (forApostrof = forExec.exec(newText)){
+//            //console.log(forApostrof);
+//            var piece = forApostrof.str.replace(/\"/, "\'");
+//            console.log(piece);
+//        }
+//        var forApostrof = newText.match(/\w\"\w/g, function (str) {
+//            let pieces = str.split(/\"/);
+//            
+//        });
         node.innerHTML = newText;
     </script>
 </body>
