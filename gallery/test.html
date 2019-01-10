@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+    const delJSON = (url) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(function() {
+          if (url) {
+            resolve({
+              message: 'deleted',
+              id: 2
+            });
+          } else {
+            reject({
+              error: 'delJSON failed'
+            });
+          }
+        }, 500);
+      });
+    };
+    const getJSON = (url) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(function() {
+          if (url) {
+            resolve({
+              data: [1, 2],
+              id: 1
+            });
+          } else {
+            reject({
+              error: 'getJSON failed'
+            });
+          }
+        }, 2000);
+      });
+    };
+
+    </script>
+    
+</body>
+</html>

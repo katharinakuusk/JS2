@@ -1,0 +1,25 @@
+body,
+html {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1600 px;
+}
+
+#mainPic {
+    width: 850px;
+    height: 567px;
+    margin: 30px auto;
+}
+
+#smallPics {
+    min-width: 850px;
+    min-height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.smallPics__sm-pic {
+    
+}
