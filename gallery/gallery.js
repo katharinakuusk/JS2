@@ -41,7 +41,7 @@ window.onload = function () {
         xhr.send(); //Отправка запроса      */
         
         
-        fetch('https://api.myjson.com/bins/hsz48', {
+        fetch('galData.json', {
             method: 'GET',
         })
             .then(function(response){
