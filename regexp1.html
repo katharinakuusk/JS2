@@ -28,7 +28,7 @@
     <script>
         var node = document.getElementById('dialog');
         var text = node.textContent;
-        var newText = text.replace(/\'/g, "\"");
+        var newText = text.replace(/\B'/g, "\"");
 //        var forExec = /\w\"\w/g; 
 //        var forApostrof;
 //        while (forApostrof = forExec.exec(newText)){
