@@ -1,54 +1,11 @@
-const nameReg = /[A-Za-zА-Яа-я]+/u;
+const nameReg = /^[a-zа-я\-]+$/i;
 const phoneReg = /^[0-9()\-+]+$/;
 const emailReg = /@/;
-//function onsubmit(e) {e.preventDefault();}
-
-//class CustomValidation {
-//    constructor() {
-//        this.invalidites = [];
-//    }   
-//    
-//    checkValidity (input) {
-//        let validity = input.validity;
-//    }
-//    
-//}
-
 var submit = document.getElementById("contacts");
 
-submit.addEventListener('submit', function(e) {e.preventDefault()});
+submit.addEventListener('submit', function(e) {
+    e.preventDefault()
 
-//submit.addEventListener('click', function(e) {
-//    let elements = submit.elements;
-//    for (let i = 0; i < elements.length; i++) {
-//        let input = elements[i];
-//        console.log[input];
-//
-//// Проверим валидность поля, используя встроенную в JavaScript функцию checkValidity()
-////        if (input.checkValidity() == false) {
-////
-//////let inputCustomValidation = new CustomValidation(); // Создадим объект CustomValidation
-//////inputCustomValidation.checkValidity(input); // Выявим ошибки
-//////var customValidityMessage = inputCustomValidation.getInvalidities(); // Получим все сообщения об ошибках
-//////input.setCustomValidity(customValidityMessage); // Установим специальное сообщение об ошибке
-////
-////} 
-//} 
-//});
-function showError (container, errorMessage) {
-//    var errorDiv = document.createElement('div');
-//    errorDiv.setAttribute('class', 'error');
-//    errorDiv.innerHTML = errorMessage;
-//    container.appendChild(errorDiv);
-    container.setAttribute("class", "error-node");
-}
-
-function formValid() {
-    let messageDiv = document.querySelector('.valid-message');
-    messageDiv.innerHTML = 'Валидация пройдена';
-}
-
-submit.addEventListener('click', function(e) {
     let form = document.forms.contacts;
     let elements = form.elements;
     let userName = elements.name.value;
@@ -76,5 +33,21 @@ submit.addEventListener('click', function(e) {
     if (formValid) {
         return formValid();
     }
-})
+});
+
+function showError (container, errorMessage) {
+    let formEr = document.getElementById("contacts");
+    let errorDiv = document.createElement('div');
+    errorDiv.setAttribute('class', 'error');
+    errorDiv.innerHTML = errorMessage;
+    formEr.insertBefore(errorDiv, container);
+    container.setAttribute("class", "error-node");
+    
+}
+
+function formValid() {
+    let messageDiv = document.querySelector('.valid-message');
+    messageDiv.innerHTML = 'Валидация пройдена';
+}
+
 
