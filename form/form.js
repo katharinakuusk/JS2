@@ -36,12 +36,14 @@ submit.addEventListener('submit', function(e) {
 });
 
 function showError (container, errorMessage) {
-    let formEr = document.getElementById("contacts");
+    /*let formEr = document.getElementById("contacts");
     let errorDiv = document.createElement('div');
     errorDiv.setAttribute('class', 'error');
     errorDiv.innerHTML = errorMessage;
     formEr.insertBefore(errorDiv, container);
-    container.setAttribute("class", "error-node");
+    container.setAttribute("class", "error-node");*/
+    
+    alert(errorMessage);
     
 }
 
@@ -49,5 +51,9 @@ function formValid() {
     let messageDiv = document.querySelector('.valid-message');
     messageDiv.innerHTML = 'Валидация пройдена';
 }
+
+var a = "STIPENDIUM HUNGARICUM";
+var b = a.toLowerCase();
+console.log(b);
 
 
