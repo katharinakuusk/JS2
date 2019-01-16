@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+       <div id="dialog">
+        Check-in assistant: 'Hello! Where are you flying today?'
+        Tourist: 'Hi, I'm flying to Sydney.'
+        Check-in assistant: 'May I see your passport please?'
+        Tourist: 'Sure, here you are.'
+        Check-in assistant: 'Thank you. Do you have any check-in luggage?'
+        Tourist: 'Yeah, just one suitcase.'
+        Check-in assistant: 'Oh, sir, your suitcase is overweight. You have to pay for the excess weight; it's 10 dollars per kilo.'
+        Tourist: 'Oh, God. I have no cash with me. Do you accept credit cards?'
+        Check-in assistant: 'Sure, we accept all major credit cards.'
+        Tourist: 'Ok, I have Visa. Here you are.'
+        Check-in assistant: 'Thank you, sir, please sign here. Here's your receipt!'
+        Tourist: 'Thanks.'
+        Check-in assistant: 'Any hand baggage?'
+        Tourist: 'Yeah, I have a laptop, and this small bag.'
+        Check-in assistant: 'Ok, here's a security tag, please attach it to your bag. Would you like a window or an aisle seat?'
+        Tourist: 'A window seat, please.'
+        Check-in assistant: 'Ok, just one moment. This is your boarding pass. Here's your seat number and the departure gate. Enjoy your flight!'
+        `;
+    </div>
+    <script>
+        var node = document.getElementById('dialog');
+        var text = node.textContent;
+        var newText = text.replace(/\B'/g, "\"");
+//        var forExec = /\w\"\w/g; 
+//        var forApostrof;
+//        while (forApostrof = forExec.exec(newText)){
+//            //console.log(forApostrof);
+//            var piece = forApostrof.str.replace(/\"/, "\'");
+//            console.log(piece);
+//        }
+//        var forApostrof = newText.match(/\w\"\w/g, function (str) {
+//            let pieces = str.split(/\"/);
+//            
+//        });
+        node.innerHTML = newText;
+    </script>
+</body>
+</html>
