@@ -42,9 +42,7 @@ function showError (container, errorMessage) {
     errorDiv.innerHTML = errorMessage;
     formEr.insertBefore(errorDiv, container);
     container.setAttribute("class", "error-node");*/
-    
     alert(errorMessage);
-    
 }
 
 //
@@ -54,5 +52,24 @@ function showError (container, errorMessage) {
 //    alert("Валидация пройдена!");
 //}
 //
+
+$(document).ready(function(){
+    $.ajax({
+        type: 'GET',
+        url: 'cities.json',
+        dataType: 'json',
+        success: function (data) {
+            $cities = data.cities;
+            jQuery.each($cities, function (i, val) {
+                let $newEl = $("<option>" + val + "</option>").addClass("citites__list");
+                $("#cities").append($newEl);
+            })
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+})
 
 
