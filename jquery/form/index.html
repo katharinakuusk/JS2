@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script src="../jquery-3.3.1.js"></script>
+    <script src="container.js"></script>
     <script src="form.js" defer></script>
     <style>
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        
         form {
             display: flex;
             flex-wrap: wrap;
@@ -15,10 +21,33 @@
         }
         
         input,
-        #cities {
+        .cities-wrap {
             width: 170px;
             height: 30px;
             margin-bottom: 20px;
+        }
+        
+        .cities-wrap {
+            position: relative;
+            left: -3px;
+        }
+        
+        #cities__options {
+            padding: 3px;
+            width: 172px;
+            border: 1px solid #D8D8D8;
+            position: absolute;
+            top: 35px;
+            left: 0px;
+            margin: 0 1px;
+            background-color: white;
+            width: 100%;
+            list-style: none;
+        }
+        
+        .cities__options_option {
+            font-family: serif;
+            font: 10px sans-serif;
         }
         
         .error-node {
@@ -37,10 +66,11 @@
        <div><input type="text" placeholder="Имя" name="name"></div>
        <input type="text" placeholder="Телефон" name="phone">
        <input type="text" placeholder="e-mail" name="mail">
-       <select id="cities">
-           <option class="citites__list">-</option>
-       </select>
-       <input type="text" placeholder="Текст" name="text">
+       <div class="cities-wrap">
+           <input type="text" placeholder="Город" name="city" autocomplete="off">
+               <ul id="cities__options"></ul>
+        </div>
+           <input type="text" placeholder="Текст" name="text">
        <input type="submit" id= "submit">
    </form>
    <div class="valid-message"></div>

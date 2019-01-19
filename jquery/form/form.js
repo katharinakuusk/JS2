@@ -1,6 +1,6 @@
 const nameReg = /^[a-zа-я\-]+$/i;
 const phoneReg = /^[0-9()\-+]+$/;
-const emailReg = /^[\w\-_\.]+@[\w\-_\.]{2,}\.[a-z]{2,}$/;
+const emailReg = /^[\w\-_.]+@[\w\-_.]{2,}\.[a-z]{2,}$/i;
 var submit = document.getElementById("contacts");
 
 submit.addEventListener('submit', function(e) {
@@ -42,7 +42,7 @@ function showError (container, errorMessage) {
     errorDiv.innerHTML = errorMessage;
     formEr.insertBefore(errorDiv, container);
     container.setAttribute("class", "error-node");*/
-    alert(errorMessage);
+    console.log(errorMessage);
 }
 
 //
@@ -54,15 +54,17 @@ function showError (container, errorMessage) {
 //
 
 $(document).ready(function(){
+    $("#cities__options").hide();
+    var $autoCities = [];
+    
     $.ajax({
         type: 'GET',
         url: 'cities.json',
         dataType: 'json',
         success: function (data) {
-            $cities = data.cities;
-            jQuery.each($cities, function (i, val) {
-                let $newEl = $("<option>" + val + "</option>").addClass("citites__list");
-                $("#cities").append($newEl);
+            $citiesJSON = data.cities;
+            jQuery.each($citiesJSON, function (i, val) {
+                $autoCities.push(val);
             })
 
         },
@@ -70,6 +72,66 @@ $(document).ready(function(){
             console.log(error);
         }
     });
-})
+    
+    let $cityInput = $("[name='city']").on("input", function () {
+        
+        $("#cities__options").empty();
+        let $userCity = $cityInput.val();
+        
+        if ($userCity.length > 2) {
+            
+            $("#cities__options").show();
+            $citiesJSON.filter(function (val) {
+                
+                let guess = val.toUpperCase();
+                return ~guess.indexOf($userCity.toUpperCase());
+            }).forEach(function (val, i, $userCity) {
+                let elem = new element("li", val, "cities__options_option", "#cities__options");
+                elem.render();
+            });
+            
+        }
+        
+        $cityInput.on("blur", function () {
+            setTimeout(function() {
+                $("#cities__options").hide()
+            }, 2000)
+        });
+    
+        $("#cities__options").on("click", function (event) {
+            if ($(event.target).is(".cities__options_option")) {
+                console.log($(event.target));
+                let value = event.target.content;
+                
+                $("[name='city']").val(value);
+             //   $("[name='city']").text(event.target.content);
+            }
+        });
+        
+   /* $('#contacts [name="city"]').autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                type: 'GET',
+                url: 'cities.json',
+                dataType: 'json',
+                data: {
+                    
+                }
+                success: function (data) {
+                    response($.map(data.cities), function (item) {
+                        console.log(item);
+                        //$("#cities__options").show();
+                    })
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        minLenght: 1;
+    });*/
+    
+        });
+    });
 
 
