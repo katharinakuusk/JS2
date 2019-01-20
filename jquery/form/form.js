@@ -86,52 +86,25 @@ $(document).ready(function(){
                 let guess = val.toUpperCase();
                 return ~guess.indexOf($userCity.toUpperCase());
             }).forEach(function (val, i, $userCity) {
-                let elem = new element("li", val, "cities__options_option", "#cities__options");
+                let elem = new Element("li", val, ".cities__options_option", "#cities__options");
                 elem.render();
             });
             
         }
-        
-        $cityInput.on("blur", function () {
-            setTimeout(function() {
-                $("#cities__options").hide()
-            }, 2000)
-        });
-    
-        $("#cities__options").on("click", function (event) {
-            if ($(event.target).is(".cities__options_option")) {
-                console.log($(event.target));
-                let value = event.target.content;
-                
-                $("[name='city']").val(value);
-             //   $("[name='city']").text(event.target.content);
-            }
-        });
-        
-   /* $('#contacts [name="city"]').autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                type: 'GET',
-                url: 'cities.json',
-                dataType: 'json',
-                data: {
-                    
-                }
-                success: function (data) {
-                    response($.map(data.cities), function (item) {
-                        console.log(item);
-                        //$("#cities__options").show();
-                    })
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
-        minLenght: 1;
-    });*/
-    
-        });
     });
+    
+    $("#cities__options").on("click", function (event) {
+        let target = $(event.target);
+        let content = target.text();
+        $("[name='city']").val(content);
+    });
+    
+    $cityInput.on("blur", function () {
+        setTimeout(function() {
+            $("#cities__options").hide()
+        }, 2000)
+    });
+    
+});
 
 
