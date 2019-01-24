@@ -10,15 +10,23 @@ $(document).ready(function() {
     
     $("#review").on("submit", function(e) {
         e.preventDefault()
-        let review = new Review (0, $("#text").val());
-        review.render($reviewsContainer);
+        let $content = $("#text").val();
+        cont.addReview($content);
         console.log("Ваш отзыв был передан на модерацию");
     });
     
-    $(".review__approve").on("click", function() {
-        let id = parseInt($(this).attr('data-id'));
-        let content = (this).parent().find('.review__content').text();
+    $("#reviews-wrap").on("click", function(e) {
+        let $target = $(e.target);
+        if ($target.attr("class") !== $(".button").attr("class")) return;
+         console.log($target);
+        let id = parseInt($target.attr('data-id'));
+        if ($target.attr("class") == $(".review__approve").attr("class")) {
+            return cont.approveReview(id);
+        } 
         
-        basket.add(id, content);
+        if ($target.attr("class") == $(".review__delete").attr("class")) {
+            return cont.deleteReview(id);
+        }
+        
     })
 });

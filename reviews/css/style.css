@@ -10,7 +10,13 @@ body {
     width: 60%;
     max-width: 500px;
     min-height: 150px;
-    margin: 0 auto;
+    margin: 10px auto 0;
+    padding: 5px;
+    border-radius: 7px;
+}
+
+.approved {
+    background-color: darkseagreen;
 }
 
 .review__title {

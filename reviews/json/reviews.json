@@ -1,11 +1,11 @@
 { 
   "comments": [
     {
-      "id_user": 1,
+      "id_comment": 1,
       "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex voluptatum aspernatur quae sunt et ipsa porro tenetur tempora, ea, at quibusdam maiores! Facilis unde distinctio beatae ullam perspiciatis, optio vitae."
     },
     {
-      "id_user": 2,
+      "id_comment": 2,
       "text": "Laboriosam optio ab, deserunt error vero eligendi quos reprehenderit a quaerat at culpa consequuntur ex eaque, laudantium sint recusandae praesentium fugit facilis vel totam ea mollitia dignissimos eum temporibus minima."
     }
   ]

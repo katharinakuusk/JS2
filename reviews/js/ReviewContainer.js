@@ -21,7 +21,7 @@ class Container {
                 });
                 
                 comments.forEach(function (item) {
-                    let review = new Review(item.id_user, item.text);
+                    let review = new Review(item.id_comment, item.text);
                     self.list.push(review);
                     review.render($reviewContainer)
                 });
@@ -37,13 +37,11 @@ class Container {
     }
     
     render($jQueryElement) {
-        
+        $jQueryElement.empty();
         //console.log(this.list);
         let $container = $("<div />", {
             id: this.id
         });
-        
-        //item.render($container)
         
         this.list.forEach(function(item) {
             item.render($container);
@@ -51,7 +49,24 @@ class Container {
         $container.appendTo($jQueryElement);
     }
     
-    add(id, content) {
-        
+    addReview(content) {
+        let reviewsArrCurrentLengh = this.list.length;
+        let newReview = new Review (++reviewsArrCurrentLengh, content);
+        this.list.push(newReview);
+        console.log(this.list);
+        this.render($("#reviews-wrap"));
+    }
+    
+    approveReview(id) {
+        let currentReview = $("#" + id);
+        currentReview.addClass("approved");
+        let item = id; //через декримент получим ключ в массиве объектов
+        this.list[--item].status = "approved";
+    }
+    
+    deleteReview(id) {
+        let item = id; //через декримент получим ключ в массиве объектов
+        this.list.splice([--item], 1);
+        this.render($("#reviews-wrap"));
     }
 }

@@ -2,11 +2,18 @@ class Review {
     constructor(id, content) {
         this.id = id;
         this.content = content;
+        this.status = "unapproved";
     }
     
     render($jQueryElement) {
+        let reviewClassList = "review";
+        if (this.status == "approved") {
+            reviewClassList = "review approved";
+        }
+        
         let $reviewContainer = $('<div />', {
-            class: 'review'
+            class: reviewClassList,
+            id: this.id
         });
         let $reviewTitle = $('<p />', {
             class: 'review__title',
