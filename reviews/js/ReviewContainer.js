@@ -53,7 +53,6 @@ class Container {
         let reviewsArrCurrentLengh = this.list.length;
         let newReview = new Review (++reviewsArrCurrentLengh, content);
         this.list.push(newReview);
-        console.log(this.list);
         this.render($("#reviews-wrap"));
     }
     

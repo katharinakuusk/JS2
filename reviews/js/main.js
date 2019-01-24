@@ -15,18 +15,15 @@ $(document).ready(function() {
         console.log("Ваш отзыв был передан на модерацию");
     });
     
-    $("#reviews-wrap").on("click", function(e) {
+    $("#reviews-wrap").on("click", ".review__approve" ,function(e) {
         let $target = $(e.target);
-        if ($target.attr("class") !== $(".button").attr("class")) return;
-         console.log($target);
         let id = parseInt($target.attr('data-id'));
-        if ($target.attr("class") == $(".review__approve").attr("class")) {
-            return cont.approveReview(id);
-        } 
-        
-        if ($target.attr("class") == $(".review__delete").attr("class")) {
-            return cont.deleteReview(id);
-        }
-        
-    })
+        cont.approveReview(id);
+    });
+    
+    $("#reviews-wrap").on("click", ".review__delete" ,function(e) {
+        let $target = $(e.target);
+        let id = parseInt($target.attr('data-id'));
+        cont.deleteReview(id);
+    });
 });
