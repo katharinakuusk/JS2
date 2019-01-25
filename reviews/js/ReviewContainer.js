@@ -28,7 +28,7 @@ class Container {
                 
                 $reviewContainer.appendTo(reviewsWrap);
                 
-                this.count = this.list.lenth;
+                this.count = this.list.length;
             },
             error: function (err) {
                 console.log('Ошибка', err);
@@ -50,8 +50,8 @@ class Container {
     }
     
     addReview(content) {
-        let reviewsArrCurrentLengh = this.list.length;
-        let newReview = new Review (++reviewsArrCurrentLengh, content);
+        let newRevID = ++this.count;
+        let newReview = new Review (newRevID, content);
         this.list.push(newReview);
         this.render($("#reviews-wrap"));
     }
@@ -59,13 +59,16 @@ class Container {
     approveReview(id) {
         let currentReview = $("#" + id);
         currentReview.addClass("approved");
-        let item = id; //через декримент получим ключ в массиве объектов
-        this.list[--item].status = "approved";
+        let indexInArr = this.list.findIndex(item => item.id == id); 
+        this.list[indexInArr].status = "approved";
     }
     
     deleteReview(id) {
-        let item = id; //через декримент получим ключ в массиве объектов
-        this.list.splice([--item], 1);
+        let indexInArr = this.list.findIndex(item => item.id == id); 
+        console.log(id);
+        console.log(indexInArr);
+        this.list.splice(indexInArr, 1);
         this.render($("#reviews-wrap"));
+        console.log(this.list);
     }
 }
